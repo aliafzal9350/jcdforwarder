@@ -86,7 +86,7 @@ export async function generateMetadata({ params }: OriginPageProps): Promise<Met
       type: 'website',
       images: [
         {
-          url: 'https://jcdforwarder.com/images/og-origin-hub.jpg',
+          url: 'https://jcdforwarder.com/images/og-default.jpg',
           width: 1200,
           height: 630,
           alt: `JCD Forwarder Logistics Base in ${origin.name}`,
@@ -169,7 +169,7 @@ export default async function OriginPage({ params }: OriginPageProps) {
                 </div>
 
                 <div className="space-y-2">
-                  <div className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white flex items-baseline gap-4">
+                  <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white flex items-baseline gap-4">
                     <span>{origin.name}</span>
                     <span className="text-3xl sm:text-4xl text-sky-400 font-serif font-normal">
                       {origin.chineseName}
@@ -177,10 +177,10 @@ export default async function OriginPage({ params }: OriginPageProps) {
                     <span className="text-sm sm:text-base text-slate-400 font-mono font-normal">
                       [{origin.pinyin}]
                     </span>
-                  </div>
-                  <h1 className="text-xl sm:text-2xl font-medium text-slate-300">
-                    {origin.role}
                   </h1>
+                  <p className="text-xl sm:text-2xl font-medium text-slate-300">
+                    {origin.role}
+                  </p>
                 </div>
 
                 <p className="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">

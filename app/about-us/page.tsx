@@ -23,13 +23,20 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us | Shenzhen Jiechengda International Freight Forwarding Co., Ltd.",
+  title: { absolute: "About Us | Shenzhen Jiechengda International Freight Forwarding Co., Ltd." },
   description:
     "Learn about JCD Forwarder (Shenzhen Jiechengda), founded in 2015. Verified NVOCC License GD20240307220907, 500 m² Shenzhen consolidation warehouse, 300,000+ shipments delivered worldwide.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/about-us`,
+  },
   openGraph: {
     title: "About JCD Forwarder | Verified China NVOCC & DDP Freight Operator",
     description:
       "10+ years of China freight forwarding excellence, licensed by Guangdong Provincial Department of Transportation (NVOCC GD20240307220907).",
+    url: `${SITE_CONFIG.url}/about-us`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [{ url: `${SITE_CONFIG.url}/images/og-default.jpg`, width: 1200, height: 630, alt: SITE_CONFIG.shortName }],
   },
 };
 

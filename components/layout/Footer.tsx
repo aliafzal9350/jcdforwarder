@@ -241,7 +241,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/tools/incoterms-selector"
+                  href="/tools/incoterms"
                   className="hover:text-blue-400 transition-colors flex items-center gap-1.5"
                 >
                   <Compass className="h-3.5 w-3.5 text-emerald-400" />

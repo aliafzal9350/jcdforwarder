@@ -28,7 +28,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Interactive Logistics Calculators & Freight Web Tools | JCD Forwarder',
+  title: { absolute: 'Interactive Logistics Calculators & Freight Web Tools | JCD Forwarder' },
   description:
     'Complete suite of 10 fully functional international logistics tools: 3D Container Loading Simulator, Volumetric Weight Calculator, Express Courier Tracking, Flight Route Calculator, Unit Converter, China HS Code Finder, Proforma Invoice Generator, Packing List Exporter, Seaports Directory, and Incoterms 2020 Decision Engine.',
   keywords: [
@@ -53,6 +53,7 @@ export const metadata: Metadata = {
     url: 'https://jcdforwarder.com/tools',
     siteName: 'JCD Forwarder',
     type: 'website',
+    images: [{ url: `${SITE_CONFIG.url}/images/og-default.jpg`, width: 1200, height: 630, alt: SITE_CONFIG.shortName }],
   },
 };
 

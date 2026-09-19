@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SITE_CONFIG, getWhatsAppUrl } from "@/data/siteConfig";
 import { CONTAINER_SPECS } from "@/data/containers";
 import { useQuoteModal } from "@/components/quote/QuoteModalContext";
+import { JsonLd, createBreadcrumbSchema } from "@/components/seo/JsonLd";
 import {
   Ship,
   ShieldCheck,
@@ -196,8 +197,15 @@ export default function SeaFreightPage() {
     CONTAINER_SPECS.find((c) => c.code === selectedContainer) ||
     CONTAINER_SPECS[2];
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: SITE_CONFIG.url },
+    { name: "Services", url: `${SITE_CONFIG.url}/services` },
+    { name: "Sea Freight (FCL & LCL)", url: `${SITE_CONFIG.url}/services/sea-freight-fcl-lcl` },
+  ]);
+
   return (
     <div className="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen">
+      <JsonLd schema={breadcrumbSchema} />
       {/* 1. HERO */}
       <section className="relative overflow-hidden bg-slate-950 text-white py-20 lg:py-28 border-b border-slate-800">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-slate-950 to-slate-950 -z-10" />

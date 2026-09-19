@@ -6,6 +6,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Reach JCD Forwarder's 24/7 dispatch desk directly by WhatsApp, phone, or email for freight quotes, booking support, and customs questions.",
   path: "/contact",
+  absoluteTitle: true,
 });
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {

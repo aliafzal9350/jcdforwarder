@@ -35,6 +35,7 @@ export function createOrganizationSchema() {
     logo: `${SITE_CONFIG.url}/favicon.ico`,
     telephone: SITE_CONFIG.contact.phone,
     email: SITE_CONFIG.contact.email,
+    taxID: SITE_CONFIG.credentials.nvoccLicenseNumber,
     address: {
       '@type': 'PostalAddress',
       streetAddress: SITE_CONFIG.facility.hqAddressEn,
@@ -42,6 +43,22 @@ export function createOrganizationSchema() {
       addressRegion: SITE_CONFIG.facility.province,
       postalCode: SITE_CONFIG.facility.postalCode,
       addressCountry: 'CN',
+    },
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Government License',
+      recognizedBy: {
+        '@type': 'GovernmentOrganization',
+        name: 'Guangdong Provincial Department of Transportation',
+      },
+      identifier: SITE_CONFIG.credentials.nvoccLicenseNumber,
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: String(SITE_CONFIG.metrics.alibabaRating),
+      reviewCount: String(SITE_CONFIG.metrics.alibabaReviewCount),
+      bestRating: '5.0',
+      worstRating: '1.0',
     },
     sameAs: [
       SITE_CONFIG.socials.alibabaTrustPass,
@@ -76,7 +93,7 @@ export function createLogisticsServiceSchema(route: CountryRoute) {
     name: `DDP Freight Forwarding from China to ${route.name}`,
     description: `Complete door-to-door Delivered Duty Paid (DDP) freight solutions from China to ${route.name}. Air DDP, Sea DDP, Rail DDP, and Express Courier with customs clearance and Amazon FBA delivery.`,
     provider: {
-      '@type': 'FreightForwarder',
+      '@type': 'LocalBusiness',
       name: 'Shenzhen Jiechengda International Freight Forwarding Co., Ltd. (JCD Forwarder)',
       alternateName: 'JCD Forwarder',
       url: 'https://jcdforwarder.com',
@@ -166,12 +183,12 @@ export function createLocalBusinessSchema(origin?: OriginHub) {
   const isHQ = !origin || origin.isHeadquarters;
   return {
     '@context': 'https://schema.org',
-    '@type': 'FreightForwarder',
+    '@type': 'LocalBusiness',
     name: isHQ
       ? 'Shenzhen Jiechengda International Freight Forwarding Co., Ltd. (HQ)'
       : `JCD Forwarder - ${origin.name} Logistics Hub`,
     alternateName: isHQ ? 'JCD Forwarder Global HQ' : `JCD Forwarder ${origin.name}`,
-    image: 'https://jcdforwarder.com/images/jcd-warehouse-shenzhen.jpg',
+    image: `${SITE_CONFIG.url}/images/og-default.jpg`,
     url: origin ? `https://jcdforwarder.com/origins/${origin.slug}` : 'https://jcdforwarder.com',
     telephone: '+86 137 2424 6674',
     email: 'David@JCDforwarder.com',
@@ -192,8 +209,8 @@ export function createLocalBusinessSchema(origin?: OriginHub) {
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        opens: '08:00',
-        closes: '22:00',
+        opens: '00:00',
+        closes: '23:59',
       },
     ],
     sameAs: [

@@ -15,7 +15,7 @@ export function LiveFreightDeskBar() {
       tag: t("ticker.airTag"),
     },
     {
-      href: "/services/sea-freight",
+      href: "/services/sea-freight-fcl-lcl",
       icon: Ship,
       name: t("ticker.oceanFreight"),
       tag: t("ticker.oceanTag"),

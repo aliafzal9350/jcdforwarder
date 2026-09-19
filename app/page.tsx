@@ -35,6 +35,7 @@ export const metadata: Metadata = buildMetadata({
   title: `${SITE_CONFIG.shortName} | China DDP Freight Forwarding & Global Logistics`,
   description: SITE_CONFIG.description,
   path: "/",
+  absoluteTitle: true,
 });
 
 const featuredRoutes = TARGET_ROUTES.slice(0, 8);
@@ -70,7 +71,7 @@ const SERVICES_OVERVIEW: ServiceOverviewItem[] = [
     desc: "Direct flights from CAN, SZX, HKG to LGG, LHR, LAX, FRA. Specialized DG channel for UN38.3 pure batteries and cosmetics.",
   },
   {
-    href: "/services/sea-freight",
+    href: "/services/sea-freight-fcl-lcl",
     icon: Ship,
     color: "cyan",
     name: "Ocean Freight (FCL & LCL)",

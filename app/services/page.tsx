@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE_CONFIG, getWhatsAppUrl } from "@/data/siteConfig";
-import { JsonLd } from "@/components/seo/JsonLd";
+import { JsonLd, createBreadcrumbSchema } from "@/components/seo/JsonLd";
 import {
   Plane,
   Ship,
@@ -21,15 +21,27 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Comprehensive International Freight Forwarding Services | JCD Forwarder",
+  title: { absolute: "Comprehensive International Freight Forwarding Services | JCD Forwarder" },
   description:
     "Explore JCD Forwarder's six core international logistics services: Air Freight, Sea Freight (FCL/LCL), Rail Express, DDP Door-to-Door, Trucking Freight, and Express Courier. Reliable China export logistics with verified NVOCC license.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/services`,
+  },
   openGraph: {
     title: "Global Logistics & Freight Services from China | JCD Forwarder",
     description:
       "Direct Air charters, Ocean containers, China-Europe Rail, all-inclusive DDP, and cross-border trucking. 24/7 bilingual dispatch.",
+    url: `${SITE_CONFIG.url}/services`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [{ url: `${SITE_CONFIG.url}/images/og-default.jpg`, width: 1200, height: 630, alt: SITE_CONFIG.shortName }],
   },
 };
+
+const servicesBreadcrumbSchema = createBreadcrumbSchema([
+  { name: "Home", url: SITE_CONFIG.url },
+  { name: "Services", url: `${SITE_CONFIG.url}/services` },
+]);
 
 export default function ServicesIndexPage() {
   const services = [
@@ -52,7 +64,7 @@ export default function ServicesIndexPage() {
       description: "Cost-efficient ocean freight solutions for commercial cargo and bulk commodities. Weekly departures from all major Chinese sea ports with guaranteed vessel space.",
       transit: "18 - 35 Days",
       bestFor: "Bulk goods, heavy machinery, furniture, retail inventory, and cost-sensitive volume shipments.",
-      href: "/services/sea-freight",
+      href: "/services/sea-freight-fcl-lcl",
       icon: Ship,
       badge: "Most Economical",
       color: "indigo",
@@ -109,6 +121,7 @@ export default function ServicesIndexPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      <JsonLd schema={servicesBreadcrumbSchema} />
       {/* Hero Header */}
       <section className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white pt-16 pb-20 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

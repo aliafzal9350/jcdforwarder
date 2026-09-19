@@ -554,66 +554,7 @@ export const TARGET_ROUTES: CountryRoute[] = [
     ],
   },
 
-  // 7. FRANCE METROPOLITAN (FX)
-  {
-    code: 'FX',
-    slug: 'shipping-from-china-to-france-metropolitan',
-    name: 'France (Metropolitan)',
-    region: 'Europe',
-    flag: '🇫🇷',
-    currency: 'EUR (€)',
-    deMinimisThreshold: '€150 EUR (Customs duty threshold; 20% TVA applies from €0)',
-    dutyFormula: 'Customs Duty = CIF Value x TARIC Rate; TVA = (CIF Value + Duty) x 20%',
-    vatGstRate: '20% Standard French TVA',
-    customsAuthority: 'DGDDI (French Customs Mainland Jurisdiction)',
-    customsRequirements: [
-      'EU EORI number required for mainland France commercial imports',
-      'Triman recycling logo compliance',
-      'Direct FBA appointment booking via CARP',
-    ],
-    topAmazonWarehouses: ['CDG7 (Senlis)', 'ORY1 (Saran)', 'LIL1 (Lauwin-Planque)'],
-    mainSeaports: ['Le Havre (FRLEH)', 'Fos-sur-Mer (FRFOS)'],
-    mainAirports: ['Paris CDG', 'Liege LGG'],
-    palletSpecs: {
-      dimensions: '1.20m x 0.80m x 1.60m (Euro Pallet EPAL)',
-      palletType: 'EPAL Standard Pallet',
-      maxPalletWeightKg: 680.0,
-      maxDoubleStackHeightM: 2.54,
-      cartonMaxWeightKg: 23.0,
-      cartonMaxSingleDimensionCm: 63.5,
-      weightTiers: { standardLimitKg: 23.0, teamLiftRangeKg: '23.0 kg – 45.0 kg', mechLiftThresholdKg: 45.0 },
-    },
-    modes: [
-      {
-        name: 'Air DDP (Metropolitan Door-to-Door)',
-        type: 'air',
-        transitDays: '8–12 Business Days',
-        originHubs: ['Nanchang (KHN)', 'Shenzhen (SZX)', 'Hong Kong (HKG)'],
-        destinationHubs: ['Paris (CDG)', 'Liege (LGG)'],
-        features: ['All duties paid', 'DPD France delivery'],
-        chargeableWeightRule: 'Air: L x W x H (cm) / 6,000',
-        batteryCargoAllowed: true,
-      },
-      {
-        name: 'Sea DDP (Metropolitan Ocean Freight)',
-        type: 'sea',
-        transitDays: '45–55 Days',
-        originHubs: ['Shenzhen Yantian', 'Ningbo', 'Shanghai'],
-        destinationHubs: ['Le Havre', 'Antwerp'],
-        features: ['Full container load (FCL) and LCL consolidation', 'Amazon pallet delivery'],
-        chargeableWeightRule: 'Ocean: L x W x H (cm) / 1,000,000',
-        batteryCargoAllowed: true,
-      },
-    ],
-    portPairs: [
-      { originPort: 'Shenzhen Yantian', originCode: 'CNYTN', destinationPort: 'Le Havre', destinationCode: 'FRLEH', transitDays: '27–31 Days Sea Run' },
-    ],
-    airportPairs: [
-      { originAirport: 'Guangzhou Baiyun', originIata: 'CAN', destinationAirport: 'Paris CDG', destinationIata: 'CDG', flightHours: '12.0 Hours' },
-    ],
-  },
-
-  // 8. NETHERLANDS (NL)
+  // 7. NETHERLANDS (NL)
   {
     code: 'NL',
     slug: 'shipping-from-china-to-netherlands',

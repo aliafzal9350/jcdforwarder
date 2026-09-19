@@ -25,10 +25,17 @@ export const metadata: Metadata = {
   title: "International Express Courier Service | Fast Global Door-to-Door Delivery",
   description:
     "Tier-1 international express courier services by JCD Forwarder: DHL, FedEx, UPS partner rates, 2-4 day global transit, factory sample handling, prototype logistics, and pure battery express lines.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/services/express-courier`,
+  },
   openGraph: {
     title: "Express Courier Services from China | JCD Forwarder NVOCC",
     description:
       "Rapid international express courier from Shenzhen, Guangzhou, and Hong Kong to 220+ countries. Direct OEM factory sample pickup and daily flight departure.",
+    url: `${SITE_CONFIG.url}/services/express-courier`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [{ url: `${SITE_CONFIG.url}/images/og-default.jpg`, width: 1200, height: 630, alt: SITE_CONFIG.shortName }],
   },
 };
 
@@ -41,7 +48,7 @@ export default function ExpressCourierPage() {
     description:
       "High-priority international express shipping from China utilizing official DHL, FedEx, and UPS contracted account rates with dedicated handling for commercial samples, prototypes, and time-critical small consignments.",
     provider: {
-      "@type": "FreightForwarder",
+      "@type": "LocalBusiness",
       name: SITE_CONFIG.credentials.legalNameEn,
       url: SITE_CONFIG.url,
       telephone: SITE_CONFIG.contact.phone,

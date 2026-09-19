@@ -6,6 +6,11 @@ interface BuildMetadataOptions {
   description: string;
   /** Path relative to the site root, e.g. "/contact" */
   path: string;
+  /**
+   * Set true when `title` already contains the site name, to stop the root layout's
+   * `%s | ${SITE_CONFIG.shortName}` template from appending it a second time.
+   */
+  absoluteTitle?: boolean;
 }
 
 const OG_IMAGE = { url: `${SITE_CONFIG.url}/images/og-default.jpg`, width: 1200, height: 630, alt: SITE_CONFIG.shortName };
@@ -16,10 +21,10 @@ const OG_IMAGE = { url: `${SITE_CONFIG.url}/images/og-default.jpg`, width: 1200,
  * entirely rather than merging field-by-field, so every page must re-supply the OG image itself —
  * this helper does that automatically.
  */
-export function buildMetadata({ title, description, path }: BuildMetadataOptions): Metadata {
+export function buildMetadata({ title, description, path, absoluteTitle }: BuildMetadataOptions): Metadata {
   const url = `${SITE_CONFIG.url}${path}`;
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: { canonical: url },
     openGraph: {

@@ -23,10 +23,17 @@ export const metadata: Metadata = {
   title: "China Air Freight & Air DDP Logistics | Direct Flights & Pure Battery Channels",
   description:
     "Authoritative China air freight and Air DDP services from Shenzhen (SZX), Guangzhou (CAN), and Hong Kong (HKG) to Europe, USA, and global destinations. UN38.3 pure battery lines, 5-7 day express transit, and wheel-to-wheel customs clearance.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/services/air-freight`,
+  },
   openGraph: {
     title: "China Air Freight & Air DDP Shipping | JCD Forwarder NVOCC",
     description:
       "Direct air charters, daily freighter space, and hazardous battery channels from China to 44 global destinations. NVOCC License GD20240307220907.",
+    url: `${SITE_CONFIG.url}/services/air-freight`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [{ url: `${SITE_CONFIG.url}/images/og-default.jpg`, width: 1200, height: 630, alt: SITE_CONFIG.shortName }],
   },
 };
 
@@ -39,7 +46,7 @@ export default function AirFreightPage() {
     description:
       "Commercial air freight, scheduled freighter charters, and all-inclusive Air DDP delivery from Chinese airport gateways (SZX, CAN, HKG, PVG) with UN38.3 lithium battery compliance.",
     provider: {
-      "@type": "FreightForwarder",
+      "@type": "LocalBusiness",
       name: SITE_CONFIG.credentials.legalNameEn,
       url: SITE_CONFIG.url,
       telephone: SITE_CONFIG.contact.phone,

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { TARGET_ROUTES, type CountryRoute } from "@/data/routes";
 import { SITE_CONFIG, getWhatsAppUrl } from "@/data/siteConfig";
 import { useQuoteModal } from "@/components/quote/QuoteModalContext";
+import { JsonLd, createBreadcrumbSchema } from "@/components/seo/JsonLd";
 import {
   Globe,
   Search,
@@ -49,8 +50,14 @@ export default function RoutesIndexPage() {
     });
   }, [searchQuery, selectedRegion]);
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: SITE_CONFIG.url },
+    { name: "Country Routes", url: `${SITE_CONFIG.url}/routes` },
+  ]);
+
   return (
     <div className="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen">
+      <JsonLd schema={breadcrumbSchema} />
       {/* 1. HERO */}
       <section className="relative overflow-hidden bg-slate-950 text-white py-16 lg:py-24 border-b border-slate-800">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-950/40 via-slate-950 to-slate-950 -z-10" />

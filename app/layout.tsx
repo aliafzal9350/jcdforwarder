@@ -5,10 +5,10 @@ import { cn } from "@/lib/utils";
 import { SITE_CONFIG } from "@/data/siteConfig";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { QuoteModalProvider } from "@/components/quote/QuoteModalContext";
-import { QuoteWizardModal } from "@/components/quote/QuoteWizardModal";
+import { QuoteWizardModal } from "@/components/quote/QuoteWizardModalLazy";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { SupportChatWidget } from "@/components/chat/SupportChatWidget";
+import { SupportChatWidget } from "@/components/chat/SupportChatWidgetLazy";
 import { JsonLd, createOrganizationSchema, createWebsiteSchema } from "@/components/seo/JsonLd";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });

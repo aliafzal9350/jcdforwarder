@@ -6,7 +6,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, ContactShadows, OrbitControls } from "@react-three/drei";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const MODEL_URL = "/models/shipping_containers_hq.glb?v=jcd3";
+const MODEL_URL = "/models/shipping_containers_optimized.glb?v=jcd4";
 
 // ─── Force transparent canvas background ─────────────────────────────────────
 function BgFix() {

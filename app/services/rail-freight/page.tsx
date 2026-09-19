@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { SITE_CONFIG, getWhatsAppUrl } from "@/data/siteConfig";
 import { useQuoteModal } from "@/components/quote/QuoteModalContext";
+import { JsonLd, createBreadcrumbSchema } from "@/components/seo/JsonLd";
 import {
   Train,
   ShieldCheck,
@@ -73,8 +74,15 @@ export default function RailFreightPage() {
     { city: "Suzhou", code: "SZV", trains: "Suzhou-Europe", role: "Precision electronics and South Jiangsu industrial goods." },
   ];
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: SITE_CONFIG.url },
+    { name: "Services", url: `${SITE_CONFIG.url}/services` },
+    { name: "Rail Freight", url: `${SITE_CONFIG.url}/services/rail-freight` },
+  ]);
+
   return (
     <div className="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen">
+      <JsonLd schema={breadcrumbSchema} />
       {/* 1. HERO */}
       <section className="relative overflow-hidden bg-slate-950 text-white py-20 lg:py-28 border-b border-slate-800">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-950/40 via-slate-950 to-slate-950 -z-10" />

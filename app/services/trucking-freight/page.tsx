@@ -26,10 +26,17 @@ export const metadata: Metadata = {
   title: "Cross-Border & Domestic Trucking Freight | China Inland & International Linehaul",
   description:
     "Authoritative trucking freight solutions by JCD Forwarder: China nationwide factory pickups, bonded customs cartage, cross-border China-Europe linehaul (TIR), China-ASEAN road transport, and destination drayage.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/services/trucking-freight`,
+  },
   openGraph: {
     title: "International & Inland Trucking Freight | JCD Forwarder NVOCC",
     description:
       "GPS-monitored fleet, bonded truck transit, China-Europe TIR road freight, and first-mile/last-mile container drayage. Verified NVOCC License GD20240307220907.",
+    url: `${SITE_CONFIG.url}/services/trucking-freight`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [{ url: `${SITE_CONFIG.url}/images/og-default.jpg`, width: 1200, height: 630, alt: SITE_CONFIG.shortName }],
   },
 };
 
@@ -42,7 +49,7 @@ export default function TruckingFreightPage() {
     description:
       "Comprehensive trucking services including first-mile factory collection across China, bonded customs shuttle transfer, cross-border TIR trucking to Central Asia and Europe, and final-mile port drayage.",
     provider: {
-      "@type": "FreightForwarder",
+      "@type": "LocalBusiness",
       name: SITE_CONFIG.credentials.legalNameEn,
       url: SITE_CONFIG.url,
       telephone: SITE_CONFIG.contact.phone,

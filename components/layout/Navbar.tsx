@@ -365,7 +365,7 @@ export function Navbar() {
 
                                 {/* Service 3: Sea Freight */}
                                 <Link
-                                  href="/services/sea-freight"
+                                  href="/services/sea-freight-fcl-lcl"
                                   className="flex items-start justify-between p-2.5 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900/60 hover:bg-blue-50/30 dark:hover:bg-blue-950/20 transition-all group"
                                 >
                                   <div className="flex items-start gap-2.5 min-w-0">
@@ -1054,7 +1054,7 @@ export function Navbar() {
                   <Link href="/services/air-freight" className="block py-1 text-slate-600 dark:text-slate-300 font-medium">
                     ✈️ Air Freight (Direct Flights &amp; Battery DDP)
                   </Link>
-                  <Link href="/services/sea-freight" className="block py-1 text-slate-600 dark:text-slate-300 font-medium">
+                  <Link href="/services/sea-freight-fcl-lcl" className="block py-1 text-slate-600 dark:text-slate-300 font-medium">
                     🚢 Sea Freight (20GP / 40HQ FCL &amp; LCL)
                   </Link>
                   <Link href="/services/rail-freight" className="block py-1 text-slate-600 dark:text-slate-300 font-medium">

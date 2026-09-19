@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { SITE_CONFIG, getWhatsAppUrl } from '@/data/siteConfig';
 import { useQuoteModal } from '@/components/quote/QuoteModalContext';
+import { JsonLd, createBreadcrumbSchema } from '@/components/seo/JsonLd';
 import {
   PackageCheck,
   ShieldCheck,
@@ -97,8 +98,15 @@ export default function DdpShippingPage() {
     },
   ];
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', url: SITE_CONFIG.url },
+    { name: 'Services', url: `${SITE_CONFIG.url}/services` },
+    { name: 'DDP Shipping', url: `${SITE_CONFIG.url}/services/ddp-shipping` },
+  ]);
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      <JsonLd schema={breadcrumbSchema} />
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden bg-slate-900 text-white pt-20 pb-24 border-b border-slate-800">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(37,99,235,0.25),rgba(255,255,255,0))]" />
@@ -419,7 +427,7 @@ export default function DdpShippingPage() {
               Request DDP Quotation
             </button>
             <Link
-              href="/tools/volumetric-weight-calculator"
+              href="/tools/volumetric-calculator"
               className="px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 font-bold text-sm text-slate-200 transition-colors"
             >
               Calculate CBM &amp; Volumetric Weight

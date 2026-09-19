@@ -102,7 +102,7 @@ export async function generateMetadata({ params }: RoutePageProps): Promise<Meta
       type: 'website',
       images: [
         {
-          url: 'https://jcdforwarder.com/images/og-route-overview.jpg',
+          url: 'https://jcdforwarder.com/images/og-default.jpg',
           width: 1200,
           height: 630,
           alt: `Shipping from China to ${route.name} with JCD Forwarder`,
@@ -125,17 +125,20 @@ export default async function RoutePage({ params }: RoutePageProps) {
     notFound();
   }
 
-  // Filter contextual FAQs for this destination
-  const contextualFaqs: FAQItem[] = FAQS.filter((f) => {
+  // Filter contextual FAQs for this destination. Route-specific matches are placed first so
+  // slice(0, 8) always keeps them — previously customs-us-isf-10-2 never survived the slice
+  // even on the US route itself, so every route silently rendered the same generic 8 items.
+  const routeSpecificFaqs: FAQItem[] = FAQS.filter(
+    (f) => f.id === 'customs-us-isf-10-2' && route.code === 'US'
+  );
+  const genericFaqs: FAQItem[] = FAQS.filter((f) => {
     if (f.categoryId === 'amazon-fba' || f.categoryId === 'incoterms') return true;
-    if (f.categoryId === 'customs-compliance') {
-      if (f.id === 'customs-us-isf-10-2' && route.code !== 'US') return false;
-      return true;
-    }
+    if (f.categoryId === 'customs-compliance') return f.id !== 'customs-us-isf-10-2';
     if (f.id === 'pricing-volumetric-divisors-air-express-ocean') return true;
     if (f.id === 'safety-cargo-damage-claims-process') return true;
     return false;
-  }).slice(0, 8);
+  });
+  const contextualFaqs: FAQItem[] = [...routeSpecificFaqs, ...genericFaqs].slice(0, 8);
 
   const logisticsSchema = createLogisticsServiceSchema(route);
   const faqSchema = createFaqPageSchema(contextualFaqs);
