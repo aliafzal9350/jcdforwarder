@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // 3D models are versioned via a ?v= query string in the code, so they can cache for a year.
+  async headers() {
+    return [
+      {
+        source: "/models/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+    ];
+  },
+
   // Old WordPress blog URLs (pre-migration) -> closest equivalent pages, so existing
   // Google rankings and backlinks aren't lost to 404s.
   async redirects() {

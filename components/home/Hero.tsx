@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { ShieldCheck, Award, Calculator, MessageCircle } from "lucide-react";
@@ -17,6 +18,26 @@ const HeroContainers3D = dynamic(() => import("@/components/home/HeroContainers3
   ssr: false,
   loading: () => null,
 });
+
+// Mounting WebGL is the heaviest thing on the page (seconds of main-thread work on devices
+// without a GPU), so wait for the first user interaction, or a 6s fallback, before loading it.
+function DeferredHero3D() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (ready) return;
+    const go = () => setReady(true);
+    const events = ["pointerdown", "pointermove", "scroll", "keydown", "touchstart"];
+    events.forEach((e) => window.addEventListener(e, go, { once: true, passive: true }));
+    const timer = window.setTimeout(go, 6000);
+    return () => {
+      events.forEach((e) => window.removeEventListener(e, go));
+      window.clearTimeout(timer);
+    };
+  }, [ready]);
+
+  return ready ? <HeroContainers3D /> : null;
+}
 
 function parseLeadingInt(value: string): number {
   return parseInt(value.replace(/[^0-9]/g, ""), 10);
@@ -145,7 +166,7 @@ export function Hero() {
 
           {/* Canvas fills entire panel — transparent bg blends with slate-950 */}
           <div className="absolute inset-0">
-            <HeroContainers3D />
+            <DeferredHero3D />
           </div>
         </motion.div>
         </div>

@@ -120,7 +120,7 @@ export default function HeroContainers3D() {
         toneMappingExposure: 1.08,
         outputColorSpace: THREE.SRGBColorSpace,
       }}
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0, 0, 0), 0)}
     >
       <BgFix />
