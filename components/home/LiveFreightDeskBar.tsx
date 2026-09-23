@@ -35,7 +35,7 @@ export function LiveFreightDeskBar() {
   ];
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm px-5 py-4 sm:px-6">
+    <div className="rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 sm:px-6">
       <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-6">
         <div className="flex items-center gap-2.5 shrink-0">
           <span className="relative flex h-2.5 w-2.5">

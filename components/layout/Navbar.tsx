@@ -118,8 +118,8 @@ export function Navbar() {
   }, []);
 
   const topTierRoutes = TARGET_ROUTES.slice(0, 12);
-  // The homepage hero is dark, so the header can start transparent/blended and become solid on scroll.
-  // Every other page has a light background immediately below the header, so it stays solid always.
+  // At the top of the homepage the header uses the hero's navy so the two read as one block;
+  // it turns white on scroll. Every other page has a light background below the header, so it stays white.
   const transparentTop = pathname === "/" && !scrolled;
 
   return (
@@ -201,7 +201,8 @@ export function Navbar() {
           scrolled
             ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-md border-b border-slate-200/80 dark:border-slate-800"
             : transparentTop
-            ? "bg-slate-950/90 backdrop-blur-md border-b border-white/5"
+            ? // Desktop stops match the colors along the top edge of the hero's 100deg gradient.
+              "bg-brand-navy lg:bg-[linear-gradient(90deg,#0b1f3a_0%,#0b1f3a_53%,#0e4a6e_84%,#0a537c_100%)] border-b border-transparent"
             : "bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800"
         )}
       >

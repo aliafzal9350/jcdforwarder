@@ -77,10 +77,12 @@ export function Hero() {
   const handleModelReady = useCallback(() => setModelReady(true), []);
 
   return (
-    <section className="relative isolate overflow-hidden bg-slate-950 text-white pt-16 pb-14 lg:pt-24 lg:pb-20 border-b border-slate-800">
-      {/* Cinematic backdrop: navy base, cyan network glow, warm accent light */}
-      <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-950 to-slate-950" />
-      <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(234,88,12,0.12),transparent_60%)]" />
+    <section className="relative isolate overflow-hidden bg-brand-navy text-white pt-16 pb-14 lg:pt-24 lg:pb-20 border-b border-slate-800">
+      {/* Ocean backdrop: brand navy under the text, brightening to deep sea blue behind the
+          containers (top-to-bottom on mobile, where the containers sit below the text). */}
+      <div className="absolute inset-0 -z-20 bg-[linear-gradient(180deg,#0b1f3a_0%,#0b1f3a_55%,#0e4a6e_82%,#075985_100%)] lg:bg-[linear-gradient(100deg,#0b1f3a_0%,#0b1f3a_48%,#0e4a6e_76%,#075985_100%)]" />
+      {/* Soft cyan glow behind the containers */}
+      <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_50%_80%,rgba(56,189,248,0.2),transparent_55%)] lg:bg-[radial-gradient(ellipse_at_78%_48%,rgba(56,189,248,0.2),transparent_50%)]" />
       <GlobalRouteNetwork
         className="absolute inset-y-0 right-0 -z-10 h-full w-full max-w-4xl opacity-70 [mask-image:linear-gradient(to_left,white_40%,transparent_85%)]"
       />
@@ -108,8 +110,8 @@ export function Hero() {
               <Award className="h-3.5 w-3.5 text-amber-400" />
               <span>
                 {locale === "zh"
-                  ? `阿里巴巴 ${SITE_CONFIG.metrics.alibabaRating}/5 (${SITE_CONFIG.metrics.alibabaReviewCount}条真实好评)`
-                  : `Alibaba ${SITE_CONFIG.metrics.alibabaRating}/5 (${SITE_CONFIG.metrics.alibabaReviewCount} Verified Reviews)`}
+                  ? `打开阿里巴巴 ${SITE_CONFIG.metrics.alibabaRating}/5 (${SITE_CONFIG.metrics.alibabaReviewCount}条真实好评)`
+                  : `Open Alibaba ${SITE_CONFIG.metrics.alibabaRating}/5 (${SITE_CONFIG.metrics.alibabaReviewCount} Verified Reviews)`}
               </span>
               <ArrowUpRight
                 aria-hidden="true"
