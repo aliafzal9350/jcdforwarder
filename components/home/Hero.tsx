@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { ShieldCheck, Award, Calculator, MessageCircle } from "lucide-react";
+import { ShieldCheck, Award, ArrowUpRight, Calculator, MessageCircle } from "lucide-react";
 import { SITE_CONFIG, getWhatsAppUrl } from "@/data/siteConfig";
 import { useQuoteModal } from "@/components/quote/QuoteModalContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -21,7 +21,7 @@ const HeroContainers3D = dynamic(() => import("@/components/home/HeroContainers3
 
 // Mounting WebGL is the heaviest thing on the page (seconds of main-thread work on devices
 // without a GPU), so wait for the first user interaction, or a 6s fallback, before loading it.
-function DeferredHero3D() {
+function DeferredHero3D({ onReady }: { onReady: () => void }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -36,8 +36,19 @@ function DeferredHero3D() {
     };
   }, [ready]);
 
-  return ready ? <HeroContainers3D /> : null;
+  return ready ? <HeroContainers3D onReady={onReady} /> : null;
 }
+
+// Must stay identical on server and client: swapping these props after hydration (once the
+// reduced-motion preference resolves) left the hero stuck at opacity 0 for those visitors.
+const FADE_UP = {
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+};
+
+// 1x1 transparent GIF: what <img> shows below lg, where the poster <source> doesn't apply.
+const BLANK_GIF = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 function parseLeadingInt(value: string): number {
   return parseInt(value.replace(/[^0-9]/g, ""), 10);
@@ -62,9 +73,8 @@ export function Hero() {
   // Mirrors SITE_CONFIG.contact.slaResponseTime ("≤ 2-Hour Average Response Time"), shortened for the metric tile.
   const sla = useCountUp(2, { disabled: reducedMotion, duration: 1 });
 
-  const fadeUp = reducedMotion
-    ? {}
-    : { initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
+  const [modelReady, setModelReady] = useState(false);
+  const handleModelReady = useCallback(() => setModelReady(true), []);
 
   return (
     <section className="relative isolate overflow-hidden bg-slate-950 text-white pt-16 pb-14 lg:pt-24 lg:pb-20 border-b border-slate-800">
@@ -77,7 +87,7 @@ export function Hero() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-center gap-2 lg:gap-8">
-        <motion.div className="lg:col-span-7 max-w-3xl space-y-6" {...fadeUp} transition={{ duration: 0.5 }}>
+        <motion.div className="lg:col-span-7 max-w-3xl space-y-6" {...FADE_UP} transition={{ duration: reducedMotion ? 0 : 0.5 }}>
           <div className="flex flex-wrap items-center gap-2">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 px-3 py-1 text-xs font-semibold text-blue-300">
               <ShieldCheck className="h-3.5 w-3.5 text-blue-400" />
@@ -88,14 +98,23 @@ export function Hero() {
               href={SITE_CONFIG.socials.alibabaTrustPass}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 px-3 py-1 text-xs font-semibold text-amber-300"
+              className="group relative isolate inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-400/50 px-3 py-1 text-xs font-semibold text-amber-200 shadow-[0_0_14px_rgba(245,158,11,0.35)] transition-all hover:bg-amber-500/25 hover:border-amber-300 hover:text-amber-100 hover:shadow-[0_0_22px_rgba(245,158,11,0.55)]"
             >
+              {/* Soft breathing halo drawing the eye to the verified Alibaba store */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-1 -z-10 rounded-full bg-amber-400/20 blur-md motion-safe:animate-pulse"
+              />
               <Award className="h-3.5 w-3.5 text-amber-400" />
               <span>
                 {locale === "zh"
                   ? `阿里巴巴 ${SITE_CONFIG.metrics.alibabaRating}/5 (${SITE_CONFIG.metrics.alibabaReviewCount}条真实好评)`
                   : `Alibaba ${SITE_CONFIG.metrics.alibabaRating}/5 (${SITE_CONFIG.metrics.alibabaReviewCount} Verified Reviews)`}
               </span>
+              <ArrowUpRight
+                aria-hidden="true"
+                className="h-3.5 w-3.5 text-amber-300 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
             </a>
           </div>
 
@@ -151,8 +170,8 @@ export function Hero() {
 
         <motion.div
           className="lg:col-span-5 relative h-72 sm:h-[400px] lg:h-[560px] -mt-4 lg:-mt-10 lg:mr-[-3rem] overflow-visible"
-          {...fadeUp}
-          transition={{ duration: 0.7, delay: reducedMotion ? 0 : 0.12 }}
+          {...FADE_UP}
+          transition={{ duration: reducedMotion ? 0 : 0.7, delay: reducedMotion ? 0 : 0.12 }}
         >
           {/* Multi-layer glow aura behind the containers */}
           <div className="pointer-events-none absolute inset-0 -z-10">
@@ -166,15 +185,36 @@ export function Hero() {
 
           {/* Canvas fills entire panel — transparent bg blends with slate-950 */}
           <div className="absolute inset-0">
-            <DeferredHero3D />
+            <DeferredHero3D onReady={handleModelReady} />
           </div>
+
+          {/* Still render of the same scene, so the panel isn't empty on desktop while the
+              3D waits for the first interaction; crossfades out once the live model loads. */}
+          <picture>
+            <source
+              media="(min-width: 1024px)"
+              srcSet="/images/hero-containers.webp 1x, /images/hero-containers@2x.webp 2x"
+              type="image/webp"
+            />
+            <img
+              src={BLANK_GIF}
+              alt=""
+              aria-hidden="true"
+              width={536}
+              height={560}
+              fetchPriority="high"
+              className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-700 motion-reduce:transition-none ${
+                modelReady ? "opacity-0" : "opacity-100"
+              }`}
+            />
+          </picture>
         </motion.div>
         </div>
 
         <motion.div
           className="mt-8 lg:mt-16"
-          {...fadeUp}
-          transition={{ duration: 0.5, delay: reducedMotion ? 0 : 0.15 }}
+          {...FADE_UP}
+          transition={{ duration: reducedMotion ? 0 : 0.5, delay: reducedMotion ? 0 : 0.15 }}
         >
           <LiveFreightDeskBar />
         </motion.div>

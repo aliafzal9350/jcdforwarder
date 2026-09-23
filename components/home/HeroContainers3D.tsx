@@ -6,7 +6,9 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, ContactShadows, OrbitControls } from "@react-three/drei";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const MODEL_URL = "/models/shipping_containers_optimized.glb?v=jcd4";
+// JCD-branded model (shipping_containers_hq.glb) with its PNG textures re-encoded as WebP.
+// Do not swap in shipping_containers_optimized.glb — it predates the branding.
+const MODEL_URL = "/models/shipping_containers_branded.glb?v=jcd5";
 
 // ─── Force transparent canvas background ─────────────────────────────────────
 function BgFix() {
@@ -56,10 +58,15 @@ function Particles() {
 // ─────────────────────────────────────────────────────────────────────────────
 // Container scene
 // ─────────────────────────────────────────────────────────────────────────────
-function ContainerScene({ isInteracting }: { isInteracting: boolean }) {
+function ContainerScene({ isInteracting, onReady }: { isInteracting: boolean; onReady?: () => void }) {
   const { scene }     = useGLTF(MODEL_URL);
   const groupRef      = useRef<THREE.Group>(null);
   const reducedMotion = useReducedMotion();
+
+  // Runs once the model has loaded (this component suspends until then).
+  useEffect(() => {
+    onReady?.();
+  }, [onReady]);
 
   useMemo(() => {
     scene.traverse((obj) => {
@@ -93,7 +100,7 @@ function ContainerScene({ isInteracting }: { isInteracting: boolean }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // Root export
 // ─────────────────────────────────────────────────────────────────────────────
-export default function HeroContainers3D() {
+export default function HeroContainers3D({ onReady }: { onReady?: () => void }) {
   const reducedMotion                     = useReducedMotion();
   const [mobile, setMobile]               = useState(false);
   const [isInteracting, setIsInteracting] = useState(false);
@@ -120,7 +127,7 @@ export default function HeroContainers3D() {
         toneMappingExposure: 1.08,
         outputColorSpace: THREE.SRGBColorSpace,
       }}
-      dpr={[1, 1.5]}
+      dpr={[1, 2]}
       onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0, 0, 0), 0)}
     >
       <BgFix />
@@ -162,7 +169,7 @@ export default function HeroContainers3D() {
       {!reducedMotion && <Particles />}
 
       <Suspense fallback={null}>
-        <ContainerScene isInteracting={isInteracting} />
+        <ContainerScene isInteracting={isInteracting} onReady={onReady} />
         <ContactShadows
           position={[0, -1.9, 0]}
           opacity={0.65}
