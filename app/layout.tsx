@@ -9,6 +9,7 @@ import { QuoteWizardModal } from "@/components/quote/QuoteWizardModalLazy";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SupportChatWidget } from "@/components/chat/SupportChatWidgetLazy";
+import { ActivityToast } from "@/components/activity/ActivityToastLazy";
 import { JsonLd, createOrganizationSchema, createWebsiteSchema } from "@/components/seo/JsonLd";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -89,6 +90,7 @@ export default function RootLayout({
             <Footer />
             <QuoteWizardModal />
             <SupportChatWidget />
+            <ActivityToast />
           </QuoteModalProvider>
         </LanguageProvider>
       </body>
