@@ -45,6 +45,20 @@ const LABELS = {
   dismiss: { en: "Hide these messages for this visit", zh: "本次访问不再显示" },
 };
 
+// Countdown line colours follow each card's label: emerald for reviews, blue for requests/questions.
+const BAR_STYLES = {
+  review: {
+    bar: "from-emerald-600 via-emerald-500 to-emerald-400",
+    halo: "bg-emerald-400/60",
+    core: "shadow-[0_0_8px_2px_rgba(52,211,153,0.85)]",
+  },
+  info: {
+    bar: "from-blue-600 via-blue-500 to-sky-400",
+    halo: "bg-sky-400/60",
+    core: "shadow-[0_0_8px_2px_rgba(56,189,248,0.85)]",
+  },
+};
+
 interface Controls {
   pause: () => void;
   resume: () => void;
@@ -60,6 +74,7 @@ export function ActivityToast() {
   const [index, setIndex] = useState<number | null>(null);
   const [shown, setShown] = useState(false);
   const asideRef = useRef<HTMLElement>(null);
+  const barRef = useRef<HTMLSpanElement>(null);
   const quoteOpenRef = useRef(quoteOpen);
   const controls = useRef<Controls | null>(null);
 
@@ -75,11 +90,31 @@ export function ActivityToast() {
     let paused = false;
     let remaining = 0;
     let startedAt = 0;
+    let total = 0; // the current card's full display time: the countdown line's 100%
+    let barAnim: Animation | null = null;
     let onVisible: (() => void) | null = null;
 
     const schedule = (fn: () => void, ms: number) => {
       window.clearTimeout(timer);
       timer = window.setTimeout(fn, ms);
+    };
+
+    // The line's width shows remaining / total. It's driven from the same numbers as the
+    // close timer, so pausing, holding and resuming keep the two in step.
+    const runBar = (fromFraction: number, ms: number) => {
+      const el = barRef.current;
+      if (!el) return;
+      el.parentElement?.removeAttribute("data-paused");
+      barAnim?.cancel();
+      barAnim = el.animate(
+        [{ transform: `translateX(${(fromFraction - 1) * 100}%)` }, { transform: "translateX(-100%)" }],
+        { duration: Math.max(ms, 1), easing: "linear", fill: "forwards" }
+      );
+    };
+
+    const freezeBar = () => {
+      barAnim?.pause();
+      barRef.current?.parentElement?.setAttribute("data-paused", "");
     };
 
     const startCountdown = (ms: number) => {
@@ -110,10 +145,19 @@ export function ActivityToast() {
       nextIndex = i + 1;
       writeSession(NEXT_KEY, String(nextIndex));
       setIndex(i);
-      // Mount hidden first, then flip to visible a frame later so the enter transition runs.
-      requestAnimationFrame(() => requestAnimationFrame(() => setShown(true)));
       paused = false;
-      startCountdown(randomBetween(VISIBLE_MS));
+      total = randomBetween(VISIBLE_MS);
+      startCountdown(total);
+      // Mount hidden first, then flip to visible a frame later so the enter transition runs.
+      // The line starts here too, once the card (and its bar element) is in the DOM.
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          setShown(true);
+          const left = counting ? remaining - (Date.now() - startedAt) : remaining;
+          runBar(left / total, left);
+          if (!counting) freezeBar();
+        })
+      );
     }
 
     function onTimeUp() {
@@ -124,6 +168,7 @@ export function ActivityToast() {
         counting = false;
         paused = true;
         remaining = 0;
+        freezeBar();
         return;
       }
       close();
@@ -146,11 +191,16 @@ export function ActivityToast() {
         paused = true;
         window.clearTimeout(timer);
         remaining -= Date.now() - startedAt;
+        freezeBar();
       },
       resume() {
         if (!paused) return;
         paused = false;
+        // Continue the line from where it froze; if the 2s minimum stretches the time, the
+        // line drains a little slower instead of jumping back up.
+        const fromFraction = Math.max(remaining, 0) / total;
         startCountdown(Math.max(remaining, MIN_RESUME_MS));
+        runBar(fromFraction, remaining);
       },
       dismiss() {
         stopped = true;
@@ -174,6 +224,7 @@ export function ActivityToast() {
 
     return () => {
       window.clearTimeout(timer);
+      barAnim?.cancel();
       if (onVisible) document.removeEventListener("visibilitychange", onVisible);
       controls.current = null;
     };
@@ -183,6 +234,7 @@ export function ActivityToast() {
   const item = ACTIVITY_FEED[index];
   // The quote wizard overlays the page; stay out of its way while it is open.
   const visible = shown && !quoteOpen;
+  const barStyle = BAR_STYLES[item.kind === "review" ? "review" : "info"];
 
   return (
     <aside
@@ -216,6 +268,32 @@ export function ActivityToast() {
         >
           <ToastBody item={item} lang={lang} />
         </a>
+        {/* Countdown line: drains as the card's display time runs out; frozen and dimmed while held.
+            Taller than the 3px line so the head's glow has room; clipped to the card's rounded bottom. */}
+        <span
+          aria-hidden="true"
+          className="group/bar pointer-events-none absolute inset-x-0 bottom-0 h-4 overflow-hidden rounded-b-[11px]"
+        >
+          <span className="absolute inset-x-0 bottom-0 h-[3px] bg-slate-100" />
+          <span
+            ref={barRef}
+            className={cn("absolute inset-x-0 bottom-0 h-[3px] bg-gradient-to-r will-change-transform", barStyle.bar)}
+          >
+            <span
+              className={cn(
+                "absolute right-0 -bottom-1.5 h-4 w-12 translate-x-1/2 rounded-full blur-md transition-opacity duration-300 motion-safe:animate-pulse group-data-[paused]/bar:opacity-25 group-data-[paused]/bar:animate-none",
+                barStyle.halo
+              )}
+            />
+            <span className="absolute right-0 top-0 h-full w-8 bg-gradient-to-r from-transparent to-white/80" />
+            <span
+              className={cn(
+                "absolute right-0 top-1/2 h-[5px] w-[5px] -translate-y-1/2 translate-x-1/2 rounded-full bg-white transition-opacity duration-300 group-data-[paused]/bar:opacity-40",
+                barStyle.core
+              )}
+            />
+          </span>
+        </span>
         <button
           type="button"
           onClick={() => controls.current?.dismiss()}
