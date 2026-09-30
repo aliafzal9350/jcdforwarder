@@ -90,7 +90,7 @@ const assets = {
   <rect x="110" y="120" width="60" height="50" fill="#F59E0B" rx="3"/>
   <rect x="190" y="120" width="60" height="50" fill="#3B82F6" rx="3"/>
   <rect x="270" y="120" width="60" height="50" fill="#10B981" rx="3"/>
-  <text x="400" y="60" text-anchor="middle" fill="#38BDF8" font-family="sans-serif" font-size="20" font-weight="bold">SHENZHEN HQ 500M² STAGING & INSPECTION FACILITY</text>
+  <text x="400" y="60" text-anchor="middle" fill="#38BDF8" font-family="sans-serif" font-size="20" font-weight="bold">SHENZHEN HQ 5,000M² STAGING & INSPECTION FACILITY</text>
 </svg>`,
 
   'hero_freight_truck.svg': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">

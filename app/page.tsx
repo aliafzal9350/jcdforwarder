@@ -616,7 +616,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-start gap-2">
                   <Building2 className="h-4 w-4 text-blue-600 shrink-0 mt-0.5" />
-                  <span><strong>Warehouse Facilities:</strong> 500 m² bonded consolidation space with 7-day free staging, automated barcode sorting, and EPAL pallet wrapping</span>
+                  <span><strong>Warehouse Facilities:</strong> 5,000 m² bonded consolidation space with 7-day free staging, automated barcode sorting, and EPAL pallet wrapping</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <Clock className="h-4 w-4 text-blue-600 shrink-0 mt-0.5" />

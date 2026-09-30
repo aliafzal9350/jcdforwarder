@@ -134,7 +134,7 @@ export const zh: TranslationDictionary = {
     hqOffice: "深圳总部办公室",
     warehouseBase: "深圳集运中心仓:",
     warehouseDesc:
-      "位于深圳宝安新和500㎡集运仓，提供7天免费仓储、FNSKU贴标分拣与EPAL标准化打托服务。",
+      "位于深圳宝安新和5000㎡集运仓，提供7天免费仓储、FNSKU贴标分拣与EPAL标准化打托服务。",
     allRightsReserved: "版权所有。",
     licenseFiling: "无船承运人备案编号:",
     registeredIn: "注册地：中国广东省深圳市。",

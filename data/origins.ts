@@ -69,13 +69,13 @@ export const ORIGIN_HUBS: OriginHub[] = [
     role: 'Global Corporate HQ, Central Inspection Facility & Battery Air Gateway',
     isHeadquarters: true,
     facilityAddress: "Building C (Entire Building), No. 40 Yuesheng 2nd Road, South Industrial Area, Xinhe Community, Fuhai Street, Bao'an District, Shenzhen, China",
-    warehouseAreaSqM: 500,
+    warehouseAreaSqM: 5000,
     coordinates: {
       lat: 22.6823,
       lng: 113.8219,
     },
     overview:
-      "As JCD Forwarder's operational headquarters and flagship logistics base, Shenzhen houses our 500+ m² dedicated inspection, devanning, and palletizing warehouse. Positioned minutes from Bao'an International Airport and Hong Kong border crossings, Shenzhen serves as the premier global gateway for high-tech electronics, UN38.3 lithium battery cargo, and express Amazon FBA consolidation.",
+      "As JCD Forwarder's operational headquarters and flagship logistics base, Shenzhen houses our 5,000+ m² dedicated inspection, devanning, and palletizing warehouse. Positioned minutes from Bao'an International Airport and Hong Kong border crossings, Shenzhen serves as the premier global gateway for high-tech electronics, UN38.3 lithium battery cargo, and express Amazon FBA consolidation.",
     seaports: [
       {
         name: 'Yantian International Container Terminals (YICT)',
@@ -172,7 +172,7 @@ export const ORIGIN_HUBS: OriginHub[] = [
       'Precision telecommunication equipment',
     ],
     operationalAdvantages: [
-      'Direct company-owned 500m² inspection and consolidation facility',
+      'Direct company-owned 5,000 m² inspection and consolidation facility',
       '4.7/5.0 Alibaba TrustPass rating with 48+ audited reviews',
       'Licensed NVOCC carrier status (GD20240307220907)',
       'Direct cross-border pure battery export channel via Hong Kong (HKG)',

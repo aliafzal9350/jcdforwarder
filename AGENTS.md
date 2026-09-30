@@ -10,7 +10,7 @@ You are building the full-stack production website for JCD Forwarder (Shenzhen J
 - NVOCC Government License: GD20240307220907 (Guangdong Provincial Dept. of Transportation)[cite: 3]
 - Registration / Operational Age: Established April 07, 2015 (10+ years verified company existence, 15+ years industry experience)[cite: 3]
 - Shenzhen HQ & Inspection Center: Building C (Entire Building), No. 40 Yuesheng 2nd Road, South Industrial Area, Xinhe Community, Fuhai Street, Bao'an District, Shenzhen, China[cite: 3]
-- Facility Size: 500+ m² dedicated inspection, consolidation, and palletizing warehouse[cite: 3]
+- Facility Size: 5,000+ m² dedicated inspection, consolidation, and palletizing warehouse[cite: 3]
 - Verified Track Record: 300,000+ Shipments | 100,000+ Importers Served | 900,000 Annual Handling Units
 - Platform Trust Proof: 4.7 / 5.0 Star Rating (48+ verified Alibaba TrustPass reviews), 100.0% On-Time Dispatch Rate, <= 2-Hour response time
 - Communication Channels:

@@ -102,7 +102,7 @@ export const SITE_CONFIG: SiteConfig = {
     district: "Bao'an District",
     province: 'Guangdong',
     postalCode: '518103',
-    warehouseAreaSqM: 500,
+    warehouseAreaSqM: 5000,
     warehouseServices: [
       'Pre-shipment quality inspection & AQL sampling',
       'Free 7-day LCL consolidation storage',

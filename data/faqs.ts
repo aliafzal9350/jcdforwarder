@@ -203,7 +203,7 @@ export const FAQS: FAQItem[] = [
     categoryId: 'safety-claims',
     question: 'Does JCD provide cargo quality inspection before goods are dispatched from China?',
     answer:
-      'Yes. At our 500+ m² Shenzhen headquarters inspection center, JCD offers comprehensive pre-shipment quality control services: (1) Exterior carton integrity and dimensional verification; (2) Random AQL Level II sampling for functionality, cosmetic flaws, and color accuracy; (3) Barcode readability scanning (FNSKU, UPC, EAN); (4) 100% full-piece functional testing upon request; and (5) High-resolution photo/video reporting sent directly to the importer prior to container loading.',
+      'Yes. At our 5,000+ m² Shenzhen headquarters inspection center, JCD offers comprehensive pre-shipment quality control services: (1) Exterior carton integrity and dimensional verification; (2) Random AQL Level II sampling for functionality, cosmetic flaws, and color accuracy; (3) Barcode readability scanning (FNSKU, UPC, EAN); (4) 100% full-piece functional testing upon request; and (5) High-resolution photo/video reporting sent directly to the importer prior to container loading.',
     tags: ['Quality Inspection', 'AQL', 'Shenzhen Warehouse', 'QC'],
   },
   {

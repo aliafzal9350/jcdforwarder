@@ -133,7 +133,7 @@ export const en = {
     hqOffice: "Shenzhen HQ Office",
     warehouseBase: "Shenzhen Warehouse Base:",
     warehouseDesc:
-      "500 m² bonded consolidation center in Bao'an Xinhe with free 7-day storage, FNSKU labeling, and EPAL palletizing.",
+      "5,000 m² bonded consolidation center in Bao'an Xinhe with free 7-day storage, FNSKU labeling, and EPAL palletizing.",
     allRightsReserved: "All Rights Reserved.",
     licenseFiling: "NVOCC License Filing:",
     registeredIn: "Registered in Shenzhen, Guangdong, China.",

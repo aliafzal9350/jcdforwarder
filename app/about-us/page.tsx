@@ -25,7 +25,7 @@ import {
 export const metadata: Metadata = {
   title: { absolute: "About Us | Shenzhen Jiechengda International Freight Forwarding Co., Ltd." },
   description:
-    "Learn about JCD Forwarder (Shenzhen Jiechengda), founded in 2015. Verified NVOCC License GD20240307220907, 500 m² Shenzhen consolidation warehouse, 300,000+ shipments delivered worldwide.",
+    "Learn about JCD Forwarder (Shenzhen Jiechengda), founded in 2015. Verified NVOCC License GD20240307220907, 5,000 m² Shenzhen consolidation warehouse, 300,000+ shipments delivered worldwide.",
   alternates: {
     canonical: `${SITE_CONFIG.url}/about-us`,
   },
@@ -62,7 +62,7 @@ export default function AboutUsPage() {
     {
       year: "2022",
       title: "Consolidation Hub Upgrade in Xinhe",
-      desc: "Commissioned the 500 m² entire Building C facility in Bao'an Xinhe with automated barcode scanning, drop-testing, and free 7-day consolidation storage.",
+      desc: "Commissioned the 5,000 m² entire Building C facility in Bao'an Xinhe with automated barcode scanning, drop-testing, and free 7-day consolidation storage.",
     },
     {
       year: "2024",
@@ -235,7 +235,7 @@ export default function AboutUsPage() {
                 Operational Headquarters
               </div>
               <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">
-                500+ m² Dedicated Shenzhen Consolidation Warehouse
+                5,000+ m² Dedicated Shenzhen Consolidation Warehouse
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 Located in the Xinhe industrial corridor of Bao&apos;an District, Shenzhen, our facility operates 24/7 receiving supplier cargo from all over Guangdong, Zhejiang, and Jiangsu.
@@ -272,7 +272,7 @@ export default function AboutUsPage() {
                 <div className="flex justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800">
                   <span className="text-slate-500">Total Enclosed Area:</span>
                   <strong className="text-slate-900 dark:text-white">
-                    500+ m² (Entire Building C)
+                    5,000+ m² (Entire Building C)
                   </strong>
                 </div>
 

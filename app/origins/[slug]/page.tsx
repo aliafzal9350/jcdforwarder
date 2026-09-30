@@ -195,7 +195,7 @@ export default async function OriginPage({ params }: OriginPageProps) {
                       <div className="font-semibold text-white">Physical Warehouse Address:</div>
                       <div className="mt-0.5 text-slate-300">{origin.facilityAddress}</div>
                       <div className="mt-1 text-[11px] text-emerald-400 font-medium">
-                        {origin.warehouseAreaSqM}+ m² Dedicated Quality Inspection, Devanning & Palletizing Facility
+                        {origin.warehouseAreaSqM?.toLocaleString("en-US")}+ m² Dedicated Quality Inspection, Devanning & Palletizing Facility
                       </div>
                     </div>
                   </div>

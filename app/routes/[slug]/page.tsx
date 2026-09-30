@@ -285,7 +285,7 @@ export default async function RoutePage({ params }: RoutePageProps) {
                     <div>
                       <span className="font-semibold text-white">HQ & Inspection Center:</span>
                       <div className="text-slate-400 text-[11px] mt-0.5">
-                        Building C, Xinhe Community, Bao&apos;an, Shenzhen (500+ m²)
+                        Building C, Xinhe Community, Bao&apos;an, Shenzhen (5,000+ m²)
                       </div>
                     </div>
                   </div>
@@ -688,7 +688,7 @@ export default async function RoutePage({ params }: RoutePageProps) {
               Ready to Ship from China to {route.name}?
             </h2>
             <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
-              Get an accurate, all-inclusive DDP freight rate within 2 hours. Free 7-day storage at our 500+ m²
+              Get an accurate, all-inclusive DDP freight rate within 2 hours. Free 7-day storage at our 5,000+ m²
               Shenzhen facility, 100% carton inspection, and dedicated cargo tracking.
             </p>
             <div className="flex flex-wrap justify-center gap-4 pt-2">

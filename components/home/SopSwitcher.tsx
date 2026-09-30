@@ -28,7 +28,7 @@ const sopData: Record<SopKey, { title: string; subtitle: string; steps: { num: s
     subtitle: "CARP EDI booking, ISA scheduling, and regional GMA / EPAL palletization.",
     steps: [
       { num: "01", name: "FNSKU & Carton Verification", desc: "Carton weight checked against ≤ 22.7 kg limit; FNSKU barcodes scanned." },
-      { num: "02", name: "Shenzhen Warehouse Staging", desc: "Free 7-day consolidation and repacking in 500 m² Xinhe facility." },
+      { num: "02", name: "Shenzhen Warehouse Staging", desc: "Free 7-day consolidation and repacking in 5,000 m² Xinhe facility." },
       { num: "03", name: "Export Customs & Booking", desc: "Electronic export declaration and airline/vessel space confirmation." },
       { num: "04", name: "Linehaul Freight Transit", desc: "Priority express air flight or Matson ocean vessel to destination." },
       { num: "05", name: "Customs DDP Clearance", desc: "Duty and import tax settled under JCD bonded customs broker account." },
