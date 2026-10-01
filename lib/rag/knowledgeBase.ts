@@ -6,6 +6,15 @@
 import { TARGET_ROUTES } from '@/data/routes';
 import { ORIGIN_HUBS } from '@/data/origins';
 import { SITE_CONFIG } from '@/data/siteConfig';
+import {
+  ONLINE_TOOLS,
+  SERVED_COUNTRY_COUNT,
+  WAREHOUSE_AREA,
+  ORIGIN_HUB_NAMES,
+  formatServedCountries
+} from './siteFacts';
+
+const { credentials, contact, metrics, socials } = SITE_CONFIG;
 
 export interface KnowledgeChunk {
   id: string;
@@ -27,12 +36,12 @@ const COMPANY_CHUNKS: KnowledgeChunk[] = [
     category: 'company',
     title: 'JCD Forwarder Corporate Identity & Legal Credentials',
     keywords: ['company', 'who are you', 'license', 'nvocc', 'address', 'location', 'shenzhen', 'alibaba', 'phone', 'whatsapp', 'email', 'contact', 'david', 'reputation'],
-    content: `Shenzhen Jiechengda International Freight Forwarding Co., Ltd. (JCD Forwarder) is an official Class-A freight forwarder and licensed NVOCC (Non-Vessel Operating Common Carrier, Ministry of Transport License: GD20240307220907).
-• Headquarters: Building C (Entire Building), No. 40 Yuesheng 2nd Rd, South Industrial Area, Xinhe Community, Fuhai Street, Bao'an District, Shenzhen, Guangdong, China (518103).
-• 24/7 Dispatch Hotline & WhatsApp: +86 137 2424 6674
-• Official Quotation Desk: David@JCDforwarder.com
-• Verified Alibaba Store: https://jiechengda.en.alibaba.com/ (Verified Gold Supplier with 4.7/5.0 rating across 48+ audited reviews and 100% on-time dispatch record).
-• Track Record: Over 300,000 completed shipments across 44 global destinations, 7 domestic consolidation warehouses, and 10+ years operational history.`,
+    content: `Shenzhen Jiechengda International Freight Forwarding Co., Ltd. (JCD Forwarder) is a licensed NVOCC (Non-Vessel Operating Common Carrier, License: ${credentials.nvoccLicenseNumber}, issued by ${credentials.licensingBody}), established ${credentials.establishedDate}.
+• Headquarters & warehouse: ${SITE_CONFIG.facility.hqAddressEn} (${WAREHOUSE_AREA} inspection & consolidation warehouse).
+• 24/7 Dispatch Hotline & WhatsApp: ${contact.phoneDisplay}
+• Official Quotation Desk: ${contact.email}
+• Verified Alibaba Store: ${socials.alibabaTrustPass} (${metrics.alibabaRating}/5.0 rating across ${metrics.alibabaReviewCount}+ verified reviews, ${metrics.onTimeDispatchRate} on-time dispatch).
+• Track Record: ${metrics.completedShipments} completed shipments, ${metrics.importersServed} importers served, ${SERVED_COUNTRY_COUNT} destination countries, ${ORIGIN_HUB_NAMES.length} China origin hubs (${ORIGIN_HUB_NAMES.join(', ')}).`,
     suggestedAction: {
       type: 'whatsapp',
       label: 'Chat on WhatsApp with David (+86 137 2424 6674)'
@@ -42,8 +51,8 @@ const COMPANY_CHUNKS: KnowledgeChunk[] = [
     id: 'free-consolidation-service',
     category: 'service',
     title: 'Free 7-Day Multi-Supplier Warehouse Consolidation in Shenzhen',
-    keywords: ['consolidation', 'multi supplier', 'free warehouse', 'storage', 'combine cartons', 'repackaging', 'inspection', 'labeling', 'factory pickup'],
-    content: `JCD Forwarder provides 7 days of complimentary warehousing and multi-factory consolidation at our 10,000+ sqm central facility in Bao'an, Shenzhen:
+    keywords: ['consolidation', 'multi supplier', 'free warehouse', 'storage', 'combine cartons', 'repackaging', 'inspection', 'labeling', 'factory pickup', 'warehouse', 'warehouse size', 'how big', 'sqm', 'm2', 'square meters', 'facility'],
+    content: `JCD Forwarder provides 7 days of complimentary warehousing and multi-factory consolidation at our ${WAREHOUSE_AREA} inspection & consolidation warehouse in Bao'an District, Shenzhen:
 • Importers can order goods from multiple Chinese suppliers (e.g. Shenzhen electronics, Yiwu accessories, Ningbo hardware, Guangzhou apparel) and ship them to our facility.
 • Services included: Free receiving, barcode scanning, external carton damage inspection, photo verification, unboxing, repacking into unified master cartons, palletizing (EPAL / GMA standards), and custom export labeling / Amazon FNSKU stickering.
 • Benefit: Merging 5 smaller shipments into a single FCL container or consolidated air pallet saves between 30% and 55% in international freight and destination port clearance charges.`,
@@ -129,7 +138,7 @@ const SERVICE_CHUNKS: KnowledgeChunk[] = [
     title: 'Domestic Cartage, Drayage & Cross-Border TIR Trucking',
     keywords: ['trucking', 'cartage', 'drayage', 'bonded truck', 'tir', 'inland transport', 'factory pickup', 'hong kong trucking'],
     content: `JCD Road Transportation & Cartage Network:
-• Domestic China Drayage: Fleet of over 120 contracted GPS-monitored container chassis and curtain-side box trucks connecting factory clusters in Guangdong (Pearl River Delta), Zhejiang (Yiwu, Ningbo, Hangzhou), and Jiangsu to local ports.
+• Domestic China Drayage: Contracted GPS-monitored container chassis and curtain-side box trucks connecting factory clusters in Guangdong (Pearl River Delta), Zhejiang (Yiwu, Ningbo, Hangzhou), and Jiangsu to local ports.
 • Hong Kong Cross-Border Trucking: Daily bonded shuttles between Shenzhen and HKG Airport for expedited battery cargo and international airline connections.
 • China-Europe TIR Road Transport: Direct overland 12–16 day trucking across Central Asia to European destinations under international TIR customs carnet.`,
     suggestedAction: {
@@ -233,17 +242,9 @@ const ORIGIN_CHUNKS: KnowledgeChunk[] = ORIGIN_HUBS.map((hub) => {
     id: `origin-${hub.id}`,
     category: 'origin' as const,
     title: `China Sourcing Origin: ${hub.name} (${hub.chineseName}) Freight Hub`,
-    keywords: [
-      hub.name.toLowerCase(),
-      hub.chineseName,
-      'factory pickup',
-      'warehouse',
-      'port',
-      primaryAirport ? primaryAirport.code.toLowerCase() : '',
-      primarySeaport ? primarySeaport.code.toLowerCase() : '',
-      'origin',
-      'supplier'
-    ].filter(Boolean),
+    // Order matters: the retriever reads [0] (English name) and [1] (Chinese name) for origin boosting.
+    // Airport/port codes are left out on purpose: Guangzhou's "CAN" matched the word "can".
+    keywords: [hub.name.toLowerCase(), hub.chineseName, `${hub.name.toLowerCase()} pickup`],
     content: `Export Operations from ${hub.name} (${hub.chineseName}), ${hub.province}:
 • Specialization & Product Focus: ${(hub.manufacturingIndustries || []).join(', ')}.
 • Major Terminals: Seaport ${primarySeaport ? `${primarySeaport.name} (${primarySeaport.code})` : 'Regional Port'} | Airport ${primaryAirport ? `${primaryAirport.name} (${primaryAirport.code})` : 'Regional Airport'}.
@@ -258,18 +259,17 @@ const ORIGIN_CHUNKS: KnowledgeChunk[] = ORIGIN_HUBS.map((hub) => {
   };
 });
 
-// Country Routes (Top key destinations + generator for all)
+// Country Routes (generated for every served destination in TARGET_ROUTES).
+// Countries are matched by the destination resolver, so keywords stay specific to the country.
 const COUNTRY_CHUNKS: KnowledgeChunk[] = TARGET_ROUTES.map((route) => ({
   id: `country-${route.code.toLowerCase()}`,
   category: 'country' as const,
   title: `Shipping from China to ${route.name} (${route.code}): Customs & Transit Guide`,
-  keywords: [route.name.toLowerCase(), route.code.toLowerCase(), 'transit time', 'customs', 'duty', 'vat', 'shipping to ' + route.name.toLowerCase(), 'fba', 'ports'],
-  content: `Shipping from China to ${route.name} (${route.flag}):
+  keywords: [route.name.toLowerCase(), 'shipping to ' + route.name.toLowerCase()],
+  content: `Shipping from China to ${route.name} (${route.flag}) — served destination:
 • Region: ${route.region} | Currency: ${route.currency}
-• Transit Times:
-  - Express Courier: 2–4 business days
-  - Standard Air Cargo: 3–7 days (DDP Air: 6–10 days)
-  - Ocean Freight: ${route.portPairs?.[0]?.transitDays || '18–35 days'} (Port-to-Port); DDP Sea: 22–38 days door-to-door.
+• Shipping options & transit times:
+${route.modes.map((mode) => `  - ${mode.name}: ${mode.transitDays}`).join('\n')}
 • Customs & Tax Framework:
   - Customs Authority: ${route.customsAuthority}
   - De Minimis Threshold: ${route.deMinimisThreshold}
@@ -278,13 +278,50 @@ const COUNTRY_CHUNKS: KnowledgeChunk[] = TARGET_ROUTES.map((route) => ({
 • Key Seaports: ${route.mainSeaports.join(', ')}
 • Key International Airports: ${route.mainAirports.join(', ')}
 • Compliance Highlights: ${route.customsRequirements.slice(0, 3).join('; ')}
-• Amazon FBA Fulfillment: Supported with full FNSKU labeling, GMA Grade B+ / EPAL palletization, and CARP / ISA appointment scheduling.`,
+• Main fulfillment / warehouse hubs: ${route.topAmazonWarehouses.slice(0, 3).join(', ')}
+• Full route guide: /routes/${route.slug}`,
   suggestedAction: {
     type: 'quote',
     label: `Get Instant Quote for China to ${route.name}`,
-    payload: { destination: route.name }
+    payload: { destination: route.slug }
   }
 }));
+
+// Website tools & destination coverage — answers "what tools do you have" / "which countries"
+const SITE_CHUNKS: KnowledgeChunk[] = [
+  {
+    id: 'online-logistics-tools',
+    category: 'faq',
+    title: 'Free Online Logistics Tools & Calculators on the JCD Forwarder Website',
+    keywords: [
+      'tool', 'tools', 'online tools', 'calculator', 'calculators', 'converter', 'generator',
+      'cbm', 'cbm calculator', ...ONLINE_TOOLS.flatMap((tool) => tool.keywords)
+    ],
+    content: `JCD Forwarder offers ${ONLINE_TOOLS.length} free online logistics tools (all listed at /tools):
+${ONLINE_TOOLS.map((tool) => `• ${tool.title} (${tool.href}): ${tool.summary}`).join('\n')}`,
+    suggestedAction: {
+      type: 'tool',
+      label: 'Browse All Logistics Tools',
+      payload: { href: '/tools' }
+    }
+  },
+  {
+    id: 'destination-coverage',
+    category: 'company',
+    title: 'Which Countries JCD Forwarder Ships To (Destination Coverage)',
+    keywords: [
+      'countries', 'which countries', 'destinations', 'where do you ship', 'coverage', 'worldwide',
+      'country list', 'all countries', 'regions'
+    ],
+    content: `JCD Forwarder ships from China to exactly ${SERVED_COUNTRY_COUNT} destination countries:
+${formatServedCountries()}
+Countries not on this list are not currently served (for example Pakistan, Saudi Arabia, Nigeria, Brazil, Turkey, Indonesia).`,
+    suggestedAction: {
+      type: 'quote',
+      label: 'Request Freight Quote'
+    }
+  }
+];
 
 // Common FAQs
 const FAQ_CHUNKS: KnowledgeChunk[] = [
@@ -341,5 +378,6 @@ export const ALL_KNOWLEDGE_CHUNKS: KnowledgeChunk[] = [
   ...LOGISTICS_SPECS_CHUNKS,
   ...ORIGIN_CHUNKS,
   ...COUNTRY_CHUNKS,
+  ...SITE_CHUNKS,
   ...FAQ_CHUNKS
 ];

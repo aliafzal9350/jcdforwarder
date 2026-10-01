@@ -294,7 +294,8 @@ export function SupportChatWidget() {
     }
 
     if (action.type === "tool") {
-      window.location.href = "/tools";
+      const href = action.payload?.href;
+      window.location.href = href && href.startsWith("/tools") ? href : "/tools";
       return;
     }
   };
